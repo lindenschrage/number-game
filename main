@@ -1,0 +1,49 @@
+# number-game
+import random
+import sys
+
+#generate a random number between 1 and 10
+randInt = random.randint(1,10)
+def guesses(maxGuessNumber):
+    userInput = input("What is your number guess? ")
+    index = 0
+    guessIndex = 0
+    while index == 0:
+        try:
+            guess = int(userInput)
+        except ValueError:
+            print("That is not a valid number! Try again!")
+            newNum = maxGuessNumber-guessIndex
+            guesses(newNum)
+        else:
+            index+=1
+            guessIndex+=1
+            if maxGuessNumber == guessIndex:
+                print("You have run out of guesses. The correct number was {}".format(randInt))
+                newInput = input("Would you like to play again?")
+                if newInput.lower() == "yes":
+                    newNum = maxGuessNumber-guessIndex
+                    guesses(newNum)
+                else:
+                    sys.exit(1) 
+            elif guess > randInt:
+                print("That is too high!")
+                newNum = maxGuessNumber-guessIndex
+                guesses(newNum)
+            elif guess < randInt:
+                print("That is too low")
+                newNum = maxGuessNumber-guessIndex
+                guesses(newNum)
+            else:
+                print("Congratulations! That is correct. The number was {}".format(randInt))
+                newInput = input("Would you like to play again? ")
+                if newInput.lower() == "yes":
+                    newNum = maxGuessNumber-guessIndex
+                    guesses(newNum)
+                else:
+                    sys.exit(1) 
+
+guesses(10)
+
+#compare guess to secret number
+#print hit or miss
